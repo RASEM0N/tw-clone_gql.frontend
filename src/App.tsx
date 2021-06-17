@@ -1,6 +1,6 @@
 import React from 'react'
 import { Users } from './components/Users'
-import { Landing } from './components/Landing'
+import { Landing } from './pages/Landing'
 import { Route, Switch } from 'react-router-dom'
 import { SignUp } from './pages/SignUp'
 import { SignIn } from './pages/SignIn'

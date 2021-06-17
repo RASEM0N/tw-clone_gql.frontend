@@ -1,8 +1,9 @@
 import React from 'react'
-import {gql, useMutation} from '@apollo/client'
-import {ErrorMessage, Field, Form, Formik, FormikHelpers} from 'formik'
+import { gql, useMutation } from '@apollo/client'
+import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik'
 import * as yup from 'yup'
-import {useHistory} from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
+import '../style/login.css'
 
 const SIGN_UP_MUTATION = gql`
     mutation signup($name: String, $email: String!, $password: String!) {
@@ -33,13 +34,12 @@ const validationSchema = yup.object({
 
 export const SignUp = () => {
     const history = useHistory()
-    const [signUp, {error, loading}] = useMutation<MutationDataType, VariablesType>(
-        SIGN_UP_MUTATION,
-    )
+    const [signUp, { error, loading }] =
+        useMutation<MutationDataType, VariablesType>(SIGN_UP_MUTATION)
 
     const onSubmit = async (
         formData: FormDataType,
-        {setSubmitting}: FormikHelpers<FormDataType>,
+        { setSubmitting }: FormikHelpers<FormDataType>,
     ) => {
         setSubmitting(true)
         console.log(formData)
@@ -68,18 +68,24 @@ export const SignUp = () => {
             >
                 <Form>
                     {/* ------ */}
-                    <Field name="email" type="text" placeholder="Email" onChan/>
-                    <ErrorMessage name="email" component="div"/>
+                    <Field name="email" type="text" placeholder="Email" onChan />
+                    <ErrorMessage name="email" component="div" />
                     {/* ------ */}
-                    <Field name="name" type="text" placeholder="Name"/>
-                    <ErrorMessage name="name" component="div"/>
+                    <Field name="name" type="text" placeholder="Name" />
+                    <ErrorMessage name="name" component="div" />
                     {/* ------ */}
-                    <Field name="password" type="password" placeholder="Password"/>
-                    <ErrorMessage name="password" component="div"/>
+                    <Field name="password" type="password" placeholder="Password" />
+                    <ErrorMessage name="password" component="div" />
                     {/* ------ */}
-                    <button type="submit">Sign Up</button>
+                    <button type="submit" className="login-button">
+                        <span>Sign up</span>
+                    </button>
                 </Form>
             </Formik>
+            <div className="register">
+                <h4>Already have an account?</h4>
+                <Link to="/signin">Log in</Link>
+            </div>
         </div>
     )
 }

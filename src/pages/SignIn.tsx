@@ -1,8 +1,9 @@
 import React from 'react'
-import {gql, useMutation} from '@apollo/client'
-import {ErrorMessage, Field, Form, Formik, FormikHelpers} from 'formik'
+import { gql, useMutation } from '@apollo/client'
+import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik'
 import * as yup from 'yup'
-import {useHistory} from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
+import '../style/login.css'
 
 const LOGIN_MUTATION = gql`
     mutation signup($email: String!, $password: String!) {
@@ -31,13 +32,12 @@ const validationSchema = yup.object({
 
 export const SignIn = () => {
     const history = useHistory()
-    const [signUp, {error, loading}] = useMutation<MutationDataType, VariablesType>(
-        LOGIN_MUTATION,
-    )
+    const [signUp, { error, loading }] =
+        useMutation<MutationDataType, VariablesType>(LOGIN_MUTATION)
 
     const onSubmit = async (
         formData: FormDataType,
-        {setSubmitting}: FormikHelpers<FormDataType>,
+        { setSubmitting }: FormikHelpers<FormDataType>,
     ) => {
         setSubmitting(true)
         try {
@@ -65,15 +65,21 @@ export const SignIn = () => {
             >
                 <Form>
                     {/* ------ */}
-                    <Field name="email" type="text" placeholder="Email" onChan/>
-                    <ErrorMessage name="email" component="div"/>
+                    <Field name="email" type="text" placeholder="Email" onChan />
+                    <ErrorMessage name="email" component="div" />
                     {/* ------ */}
-                    <Field name="password" type="password" placeholder="Password"/>
-                    <ErrorMessage name="password" component="div"/>
+                    <Field name="password" type="password" placeholder="Password" />
+                    <ErrorMessage name="password" component="div" />
                     {/* ------ */}
-                    <button type="submit">Sign In</button>
+                    <button type="submit" className="login-button">
+                        <span>Login</span>
+                    </button>
                 </Form>
             </Formik>
+            <div className="register">
+                <h4>Don't have an account?</h4>
+                <Link to="/signup">Sign up</Link>
+            </div>
         </div>
     )
 }
